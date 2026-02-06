@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Product Details</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="back">⬅ Back</a>
+  <a href="cart.html" class="cart-link">Cart 🛒</a>
+</header>
+
+<section class="product-details">
+  <h1 id="name"></h1>
+  <p id="price"></p>
+  <button onclick="addToCart()">Add to Cart</button>
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
