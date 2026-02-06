@@ -1,22 +1,78 @@
-const products = {
-  1:{name:"Cricket Bat",price:1999},
-  2:{name:"Football",price:799},
-  3:{name:"Badminton",price:599},
-  4:{name:"Sports Shoes",price:2499},
-  5:{name:"T-Shirt",price:499},
-  6:{name:"Jeans",price:1299},
-  7:{name:"Jacket",price:1999},
-  8:{name:"Dress",price:1499},
-  9:{name:"Smartphone",price:14999},
-  10:{name:"Smart Watch",price:2199},
-  11:{name:"Headphones",price:1599},
-  12:{name:"Bluetooth Speaker",price:1899},
-  13:{name:"Cookware Set",price:2999},
-  14:{name:"Wall Clock",price:799},
-  15:{name:"Table Lamp",price:1299},
-  16:{name:"Bedsheet",price:999},
-  17:{name:"Face Cream",price:399},
-  18:{name:"Perfume",price:999},
-  19:{name:"Lipstick",price:299},
-  20:{name:"Hair Dryer",price:1499}
-};
+const products = [
+ {id:1,name:"Cricket Bat",price:1999,cat:"sports",img:"https://picsum.photos/200?1"},
+ {id:2,name:"Football",price:799,cat:"sports",img:"https://picsum.photos/200?2"},
+ {id:3,name:"T-Shirt",price:499,cat:"fashion",img:"https://picsum.photos/200?3"},
+ {id:4,name:"Shoes",price:1299,cat:"fashion",img:"https://picsum.photos/200?4"},
+ {id:5,name:"Smart Watch",price:2199,cat:"electronics",img:"https://picsum.photos/200?5"}
+];
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+/* HOME PAGE */
+if (document.getElementById("productList")) {
+  showProducts(products);
+}
+
+function showProducts(list) {
+  productList.innerHTML = "";
+  list.forEach(p=>{
+    productList.innerHTML += `
+      <div class="card">
+        <img src="${p.img}">
+        <h3>${p.name}</h3>
+        <p>₹${p.price}</p>
+        <a href="product.html?id=${p.id}" class="cart-link">View</a>
+      </div>`;
+  });
+}
+
+function filterProducts(cat){
+  showProducts(cat==="all"?products:products.filter(p=>p.cat===cat));
+}
+
+function searchProducts(){
+  const v = search.value.toLowerCase();
+  showProducts(products.filter(p=>p.name.toLowerCase().includes(v)));
+}
+
+/* PRODUCT PAGE */
+if (location.pathname.includes("product.html")) {
+  const id = new URLSearchParams(location.search).get("id");
+  const p = products.find(x=>x.id==id);
+  img.src=p.img; name.innerText=p.name; price.innerText="₹"+p.price;
+  window.addToCart=()=>{ 
+    const item=cart.find(i=>i.id==p.id);
+    item?item.qty++:cart.push({...p,qty:1});
+    localStorage.setItem("cart",JSON.stringify(cart));
+    alert("Added 💗");
+  };
+}
+
+/* CART PAGE */
+if (document.getElementById("cartItems")) {
+  let total=0; cartItems.innerHTML="";
+  cart.forEach((i,idx)=>{
+    total+=i.price*i.qty;
+    cartItems.innerHTML+=`
+      <div>
+        ${i.name} ₹${i.price} × ${i.qty}
+        <button onclick="cart[${idx}].qty++;save()">+</button>
+        <button onclick="cart[${idx}].qty--;save()">-</button>
+        <button onclick="cart.splice(${idx},1);save()">Remove</button>
+      </div>`;
+  });
+  totalEl.innerText=total;
+}
+
+function save(){
+  cart=cart.filter(i=>i.qty>0);
+  localStorage.setItem("cart",JSON.stringify(cart));
+  location.reload();
+}
+
+/* LOGIN */
+function login(){
+  localStorage.setItem("user",user.value);
+  alert("Login successful");
+  location.href="index.html";
+}
