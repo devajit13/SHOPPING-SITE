@@ -1,38 +1,22 @@
 const products = {
-  1: { name: "Cricket Bat", price: 1999 },
-  2: { name: "Football", price: 799 },
-  3: { name: "T-Shirt", price: 499 },
-  4: { name: "Shoes", price: 1299 },
-  5: { name: "Smart Watch", price: 2199 },
-  6: { name: "Headphones", price: 1599 }
+  1:{name:"Cricket Bat",price:1999},
+  2:{name:"Football",price:799},
+  3:{name:"Badminton",price:599},
+  4:{name:"Sports Shoes",price:2499},
+  5:{name:"T-Shirt",price:499},
+  6:{name:"Jeans",price:1299},
+  7:{name:"Jacket",price:1999},
+  8:{name:"Dress",price:1499},
+  9:{name:"Smartphone",price:14999},
+  10:{name:"Smart Watch",price:2199},
+  11:{name:"Headphones",price:1599},
+  12:{name:"Bluetooth Speaker",price:1899},
+  13:{name:"Cookware Set",price:2999},
+  14:{name:"Wall Clock",price:799},
+  15:{name:"Table Lamp",price:1299},
+  16:{name:"Bedsheet",price:999},
+  17:{name:"Face Cream",price:399},
+  18:{name:"Perfume",price:999},
+  19:{name:"Lipstick",price:299},
+  20:{name:"Hair Dryer",price:1499}
 };
-
-/* PRODUCT PAGE */
-if (location.pathname.includes("product.html")) {
-  const id = new URLSearchParams(location.search).get("id");
-  document.getElementById("name").innerText = products[id].name;
-  document.getElementById("price").innerText = "₹" + products[id].price;
-
-  window.addToCart = function () {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push(products[id]);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Added to cart 💗");
-  };
-}
-
-/* CART PAGE */
-if (location.pathname.includes("cart.html")) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  let total = 0;
-  const list = document.getElementById("cart-list");
-
-  cart.forEach(item => {
-    total += item.price;
-    const li = document.createElement("li");
-    li.innerText = `${item.name} - ₹${item.price}`;
-    list.appendChild(li);
-  });
-
-  document.getElementById("total").innerText = total;
-}
