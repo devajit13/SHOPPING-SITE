@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Product Details</title>
+  <title>Product</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="home-bg">
 
-<header>
-  <a href="index.html" class="back">⬅ Back</a>
+<header class="navbar">
+  <a href="index.html" class="cart-link">⬅ Back</a>
   <a href="cart.html" class="cart-link">Cart 🛒</a>
 </header>
 
-<section class="product-details">
+<div class="product-details">
+  <img id="img">
   <h1 id="name"></h1>
   <p id="price"></p>
   <button onclick="addToCart()">Add to Cart</button>
-</section>
+</div>
 
 <script src="script.js"></script>
 </body>
